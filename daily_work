@@ -1,0 +1,43 @@
+import pandas as pd
+import split
+import matplotlib.pyplot as plt
+df_EP = pd.read_excel("xxx1.xlsx")
+df_LH = pd.read_excel("xxx2.xlsx")
+df_LF12 = pd.read_excel("xxx3.xlsx")
+toushi_ep = df_EP.groupby('VT Date',as_index = False).agg({'Length':'count'})
+toushi_lh = df_LH.groupby(['VT Date'],as_index = False).agg({'Length':'count'})
+toushi_lf12 = df_LF12.groupby(['VT Date'],as_index = False).agg({'Length':'count'})
+
+'''
+df = [df_EP,df_LH,df_LF12]
+df_group = pd.concat(df)
+df_group = pd.concat(df,keys=['LF12-3','LH11-1','EP20-4'])
+toushi = df_group.groupby(['Date']).agg({'Length':'count'})
+
+plt.plot(toushi_ep,color = 'r')
+plt.plot(toushi_lh,color = 'b')
+plt.plot(toushi_lf12,color = 'g')
+'''
+
+
+
+plt.legend()
+x_ep = toushi_ep.iloc[:,0]
+y_ep =toushi_ep.iloc[:,1]
+
+x_lh = toushi_lh.iloc[:,0]
+y_lh =toushi_lh.iloc[:,1]
+
+x_lf12 = toushi_lf12.iloc[:,0]
+y_lf12 =toushi_lf12.iloc[:,1]
+
+ep = plt.bar(x = x_ep,height = y_ep,width = 0.8,color = 'r')
+lh = plt.bar(x = x_lh,height = y_lh,width = 0.8,color = 'b')
+lf12 = plt.bar(x = x_lf12,height = y_lf12,width = 0.8,color = 'g')
+
+plt.legend([ep,lh,lf12],['EP','LH','LF12'],loc = 'best')
+
+plt.show()
+
+
+
